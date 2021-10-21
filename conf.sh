@@ -1,5 +1,5 @@
 #!/bin/bash
- 
+
 PROJECT="Dotfiles"
 CURRENT_USER=$USER
 TARGET_USER="det"
@@ -45,7 +45,7 @@ pushToGit() {
   echo " - Saving dotfiles to the git repo."
   echo "--------------------------------------------------"
   cd ${PROJECT_DIR}
-  git add . && git commit -a -m 'autosave' && git push
+  git add . && git commit -a && git push
   cd -
 }
 
