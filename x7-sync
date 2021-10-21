@@ -1,0 +1,118 @@
+#!/usr/bin/env bash
+# The current versions is created for using Samba share. But in next it will use SSH for it. scp command.
+clear
+
+source lib/messages.sh || exit 1 # Importing messages functions
+
+REMOTE_USER="$USER"
+SYNC_SERVER="wh13.x7systems.com:8002"
+
+DIR_ROOT="$HOME/x7"
+DIR_MOUNT="$DIR_ROOT/x7-sync-temp-dir"
+
+DIRS_LIST="music
+dist
+docs
+pictures
+projects"
+
+function Init {
+  WelcomeMessage "
+  Starting sync procedures.
+  "
+  JobInitMessage "Creating temporary directory for sync.
+   $DIR_MOUNT "
+  mkdir -p $DIR_MOUNT
+}
+
+function VolumeUmount {
+  local volume=$1
+  cd $DIR_MOUNT
+  JobInitMessage "Umounting"
+  # SubJobMessage "TEST. Umounting $volume"
+  diskutil umount $DIR_MOUNT/$volume
+}
+
+function Preparing {
+  local volume=$1
+  cd $DIR_MOUNT
+  JobInitMessage "Preparing"
+
+  # SubJobMessage "Check for directories existence."
+  # rm -rf $volume
+  mkdir -p $DIR_MOUNT/$volume
+
+  # SubJobMessage "Check for the correct permissions."
+  # dir_perm=$(stat -c '%a' $volume)
+  dir_owner=$(stat --format=%U $volume)
+  # if [ $dir_perm != 775 ] && [ $dir_owner != $USER ]; then
+  if [ $dir_owner != $USER ]; then
+    ErrorMessage "Dir owner should be $USER, got [ $dir_owner ]"
+    exit 1
+  fi
+
+  # SubJobMessage "Check if volume not empty."
+  # $(touch $DIR_ROOT/test_file; echo $?) != 0
+  if [ "$(ls -A $volume; echo $?)" != 0 ]; then
+    VolumeUmount $volume
+  fi
+  if [ "$(ls -A $volume; echo $?)" != 0 ]; then
+    ErrorMessage "Directory [ $volume] is not empty. Exit."
+    exit 1
+  # else
+    # SubJobMessage "Directory [ $volume ] is empty. Continue."
+  fi
+
+}
+
+function VolumeMount {
+  local volume=$1
+  JobInitMessage "Mounting"
+  cd $DIR_MOUNT
+  # SubJobMessage "$volume"
+  [ $(mount_smbfs //${REMOTE_USER}@${SYNC_SERVER}/$volume $volume; echo $?) != 0 ] && { ErrorMessage "Can't mount volume."; exit 1; }
+}
+
+function VolumeHealthCheck {
+  local volume=$1
+  cd $DIR_MOUNT/$volume
+  JobInitMessage "Checking if directory is writable. Creating test_file inside $DIR_ROOT"
+
+  if [[ $( touch test_file; echo $?) = 0 ]]; then
+    rm -rf $test_file
+    # SubJobMessage "OK"
+  else
+    ErrorMessage "Directory $DIR_ROOT/$volume is not writable."
+  fi
+
+  # [[ $(touch $DIR_ROOT/test_file; echo $?) != 0 ]] && ErrorMessage "Directory $DIR_ROOT is not writable." ||
+}
+
+function Sync {
+  local volume=$1
+  cd $DIR_MOUNT
+  JobInitMessage "Sync"
+
+  # rsync -azvh $DIR_ROOT/$volume ${REMOTE_USER}/${SYNC_SERVER}/$volume
+  # SubJobMessage "Sync job complete. Add aftercheck to this part to be sure everything is really synced."
+}
+
+function Cleaning {
+  JobInitMessage "Removing volume temp directory."
+  local volume=$1
+  cd $DIR_MOUNT
+  rmdir  $volume
+}
+
+#----------
+Init
+for volume in $DIRS_LIST; do
+  echo -e "\n----------------------------\n"
+  echo -e "[ $volume ]"
+  Preparing $volume
+  VolumeMount $volume
+  Sync $volume
+  VolumeUmount $volume
+  Cleaning $volume
+done
+
