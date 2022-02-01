@@ -1,7 +1,7 @@
 COMMANDS_LIST='
 ag --nobreak --nonumbers --noheading . | fzf
 ansible all -m shell -a "echo test"
-cat .gitlab-ci.yml | xclip -selection clipboard
+cat .gitlab-ci.yml | pbcopy
 docker build -t $(basename $(pwd)) .
 docker build -t $(basename $(pwd)) . --build-arg CI_PROJECT_NAME="$(basename $(pwd))" --build-arg CI_PROJECT_NAMESPACE="vcg"
 grep --line-buffered --color=never -r "" * | fzf
