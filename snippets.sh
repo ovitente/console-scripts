@@ -1,4 +1,5 @@
 COMMANDS_LIST='
+python3 -m http.server
 ag --nobreak --nonumbers --noheading . | fzf
 ansible all -m shell -a "echo test"
 cat .gitlab-ci.yml | pbcopy
