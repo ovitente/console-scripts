@@ -9,6 +9,7 @@ docker build -t $(basename $(pwd)) . --build-arg CI_PROJECT_NAME="$(basename $(p
 git add . && git commit -a && git push
 git config --global user.email "ivan.kostrubin01@currys.co.uk"
 git config --global user.name "Ivan Kostrubin"
+git commit --amend --author="Ivan Kostrubin <ivan.kostrubin01@currys.co.uk>"
 grep --line-buffered --color=never -r "" * | fzf
 python3 -m http.server
 '
