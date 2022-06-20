@@ -13,6 +13,7 @@ git config --global user.name "Ivan Kostrubin"
 grep --line-buffered --color=never -r "" * | fzf
 hcloud server create --image=ubuntu-22.04 --type=cpx41 --location=hel1 --ssh-key=IvanKostrubin --user-data-from-file=userdata.yaml --name instance-name
 python3 -m http.server
+rsync -av -P server:~/unsted/movie.mkv .
 '
 
 choise=$(echo -n "${COMMANDS_LIST}" | fzf )
