@@ -7,10 +7,11 @@ circleci config validate config.yaml
 docker build -t $(basename $(pwd)) .
 docker build -t $(basename $(pwd)) . --build-arg CI_PROJECT_NAME="$(basename $(pwd))" --build-arg CI_PROJECT_NAMESPACE="vcg"
 git add . && git commit -a && git push
+git commit --amend --author="Ivan Kostrubin <ivan.kostrubin01@currys.co.uk>"
 git config --global user.email "ivan.kostrubin01@currys.co.uk"
 git config --global user.name "Ivan Kostrubin"
-git commit --amend --author="Ivan Kostrubin <ivan.kostrubin01@currys.co.uk>"
 grep --line-buffered --color=never -r "" * | fzf
+hcloud server create --image=ubuntu-22.04 --type=cpx41 --location=hel1 --ssh-key=IvanKostrubin --user-data-from-file=userdata.yaml --name instance-name
 python3 -m http.server
 '
 
