@@ -45,7 +45,7 @@ pushToGit() {
   echo " - Saving dotfiles to the git repo."
   echo "--------------------------------------------------"
   cd ${PROJECT_DIR}
-  git add . && git commit -a && git push
+  git add . && git commit -a -v && git push
   cd -
 }
 
