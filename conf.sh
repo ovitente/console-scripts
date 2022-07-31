@@ -21,7 +21,7 @@ changeUserToTarget() {
     echo " - Current user [ $CURRENT_USER ] is already target user. Skipping"
   else
     cd ${PROJECT_DIR}
-    grep -rli "\/${CURRENT_USER}\/" * | xargs -I@ sed -i "s/\/${CURRENT_USER}\//\/${TARGET_USER}\//g" @
+    grep -rliIq "\/${CURRENT_USER}\/" * | xargs -I@ sed -i "s/\/${CURRENT_USER}\//\/${TARGET_USER}\//g" @
     echo -e " - Done.\n"
     cd -
   fi
@@ -35,7 +35,7 @@ changeUserToCurrent() {
     echo " - Current user [ $CURRENT_USER ] is already target user. Skipping"
   else
     cd ${PROJECT_DIR}
-    grep -rli "\/${TARGET_USER}\/" * | xargs -I@ sed -i "s/\/${TARGET_USER}\//\/${CURRENT_USER}\//g" @
+    grep -rliIq "\/${TARGET_USER}\/" * | xargs -I@ sed -i "s/\/${TARGET_USER}\//\/${CURRENT_USER}\//g" @
     echo -e " - Done.\n"
     cd -
   fi
