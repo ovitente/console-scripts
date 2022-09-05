@@ -20,6 +20,7 @@ grep -rnw './' -e 'testtosearch' # Search test in files
 hcloud server create --image=ubuntu-22.04 --type=cpx41 --location=hel1 --ssh-key=IvanKostrubin --user-data-from-file=userdata.yaml --name instance-name
 python3 -m http.server
 rsync -av -P server:~/unsted/movie.mkv .
+shell openssl x509 -enddate -noout -in  %s
 '
 
 choise=$(echo -n "${COMMANDS_LIST}" | fzf )
