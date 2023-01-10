@@ -67,13 +67,13 @@ function usage {
 
 while getopts n:l:s:p: option
 do
-case "${option}" in
-n) key=${OPTARG};;
-l) login=${OPTARG};;
-s) server=${OPTARG};;
-p) port=$OPTARG;;
-*) usage;;
-esac
+  case "${option}" in
+    n) key=${OPTARG};;
+    l) login=${OPTARG};;
+    s) server=${OPTARG};;
+    p) port=$OPTARG;;
+    *) usage;;
+  esac
 done
 
 function ManualDataGet {
