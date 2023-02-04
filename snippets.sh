@@ -1,9 +1,4 @@
 COMMANDS_LIST='
-sudo lsof -i -P -n | grep LISTEN
-sudo netstat -tulpn | grep LISTEN
-sudo ss -tulpn | grep LISTEN
-sudo lsof -i:22 ## see a specific port such as 22 ##
-sudo nmap -sTU -O IP-address-Here
 ag --nobreak --nonumbers --noheading . | fzf
 ansible all -m shell -a "echo test"
 cat .gitlab-ci.yml | pbcopy
@@ -20,8 +15,14 @@ grep -rnw './' -e 'testtosearch' # Search test in files
 hcloud server create --image=ubuntu-22.04 --type=cpx41 --location=hel1 --ssh-key=IvanKostrubin --user-data-from-file=userdata.yaml --name instance-name
 python3 -m http.server
 rsync -av -P server:~/unsted/movie.mkv .
-shell openssl x509 -enddate -noout -in  %s
 rsync -rvhH --delete --progress --exclude='Photos Library.photoslibrary' /Users/det/x7/Pictures /Volumes/
+shell openssl x509 -enddate -noout -in  %s
+ssh -C2qTnN -D 8080 proxy
+sudo lsof -i -P -n | grep LISTEN
+sudo lsof -i:22 ## see a specific port such as 22 ##
+sudo netstat -tulpn | grep LISTEN
+sudo nmap -sTU -O IP-address-Here
+sudo ss -tulpn | grep LISTEN
 '
 
 choise=$(echo -n "${COMMANDS_LIST}" | fzf )
