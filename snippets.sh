@@ -16,6 +16,7 @@ hcloud server create --image=ubuntu-22.04 --type=cpx41 --location=hel1 --ssh-key
 python3 -m http.server
 rsync -av -P server:~/unsted/movie.mkv .
 rsync -rvhH --delete --progress /Users/det/x7/Pictures /Volumes/
+s/^\(.*\)\(\n\1\)\+// # Delete all strings but uniq. List MUST BE SORTED
 shell openssl x509 -enddate -noout -in  %s
 ssh -C2qTnN -D 8080 proxy
 sudo lsof -i -P -n | grep LISTEN # Port scan
