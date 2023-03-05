@@ -13,6 +13,7 @@ git config --global user.name "Ivan Kostrubin"
 grep --line-buffered --color=never -r "" * | fzf
 grep -rnw './' -e 'testtosearch' # Search test in files
 hcloud server create --image=ubuntu-22.04 --type=cpx41 --location=hel1 --ssh-key=IvanKostrubin --user-data-from-file=userdata.yaml --name instance-name
+printf "%d.%d.%d.%d\n" "$((RANDOM % 256))" "$((RANDOM % 256))" "$((RANDOM % 256))" "$((RANDOM % 256))" # random ip addres
 python3 -m http.server
 rsync -av -P server:~/unsted/movie.mkv .
 rsync -rvhH --delete --progress /Users/det/x7/Pictures /Volumes/
