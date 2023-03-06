@@ -1,4 +1,5 @@
 COMMANDS_LIST='
+gcloud config set project $(gcloud projects list | fzf --height 50% --header-lines=1 --reverse --multi --cycle | awk '{print $1}')
 ag --nobreak --nonumbers --noheading . | fzf
 ansible all -m shell -a "echo test"
 cat .gitlab-ci.yml | pbcopy
