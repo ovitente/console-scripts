@@ -1,5 +1,4 @@
 COMMANDS_LIST='
-gcloud config set project $(gcloud projects list | fzf --height 50% --header-lines=1 --reverse --multi --cycle | awk '{print $1}')
 ag --nobreak --nonumbers --noheading . | fzf
 ansible all -m shell -a "echo test"
 cat .gitlab-ci.yml | pbcopy
@@ -7,6 +6,7 @@ cat FILE | base64 -w0 | xclip -selection clipboard
 circleci config validate config.yaml
 docker build -t $(basename $(pwd)) .
 docker build -t $(basename $(pwd)) . --build-arg CI_PROJECT_NAME="$(basename $(pwd))" --build-arg CI_PROJECT_NAMESPACE="vcg"
+git rebase -i --root # replace the pick command for all but the first commit with the squash command
 git add . && git commit -a && git push
 git commit --amend --author="Ivan Kostrubin <ivan.kostrubin01@currys.co.uk>"
 git config --global user.email "ivan.kostrubin01@currys.co.uk"
