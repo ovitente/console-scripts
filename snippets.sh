@@ -1,5 +1,9 @@
+set -o nounset # Treat unset variables as an error and immediately exit
+set -o errexit # If a command fails exit the whole script
+
 COMMANDS_LIST='
 ag --nobreak --nonumbers --noheading . | fzf
+docker run -it --rm -v $(pwd):/app registry.k8s.io/kustomize/kustomize:v5.0.0 build
 ansible all -m shell -a "echo test"
 cat .gitlab-ci.yml | pbcopy
 cat FILE | base64 -w0 | xclip -selection clipboard
