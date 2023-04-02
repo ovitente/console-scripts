@@ -2,6 +2,7 @@ set -o nounset # Treat unset variables as an error and immediately exit
 set -o errexit # If a command fails exit the whole script
 
 COMMANDS_LIST='
+find ./nvim -type d -iname ".git" -exec rm -rf {} + # Remove all .git dirs
 ag --nobreak --nonumbers --noheading . | fzf
 docker run -it --rm -v $(pwd):/app registry.k8s.io/kustomize/kustomize:v5.0.0 build
 ansible all -m shell -a "echo test"
