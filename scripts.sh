@@ -1,5 +1,5 @@
-#!/bin/bash
- 
+#!/usr/bin/env bash
+
 PROJECT="SCRIPTS"
 PROJECT_DIR=~/x7/dist/scripts
 
