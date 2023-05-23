@@ -1,37 +1,31 @@
-#!/usr/bin/env bash
+#!/USR/BIN/ENV BASH
 #
-# TODO: Сделать нумерованый список иконок и принимать как аргумент только иконку.
+# TODO: СДЕЛАТЬ НУМЕРОВАНЫЙ СПИСОК ИКОНОК И ПРИНИМАТЬ КАК АРГУМЕНТ ТОЛЬКО ИКОНКУ.
 #
-ICONS_LIST="\n\n \n \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+ICONS_LIST="\N \N  \N  \N \N \N \N \N \N \N \N \N \N \N \N \N \N \N \N \N"
 PRESET_LIST="
-MTL
-SS
-App
-Book
 CFG
 EDIT
-I4S
-RYS
 SSH
 X7
-"
+TERMINAL
+JP
+I3
+CS"
 
 NAMES_LIST="
 ANSIBLE
-Deploy
+DEPLOY
 EDIT
-Firefox
+FIREFOX
 I3
 MSGR
 DEV
 STAGE
 PROD
-Polybar
-Terminal
-Typhora
-"
+TERMINAL"
 
-icon=$(echo -e "${ICONS_LIST}" | rofi -dmenu -p "SET ICON")
+# icon=$(echo -e "${ICONS_LIST}" | rofi -dmenu -p "SET ICON")
 prefix="$(echo -e "${PRESET_LIST}" | rofi -dmenu -p "SET PREFIX")"
 if [[ ! -z "$prefix" ]]; then
   label="$icon $prefix | $(echo -e "${NAMES_LIST}" | rofi -dmenu -p "SET NAME")"
